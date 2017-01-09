@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Quick Setup For React, GraphQL, and Relay",
   "scripts": {
-    "start": "concurrently --kill-others \"webpack --watch\" \"nodemon ./server.js\""
+    "start": "./node_modules/.bin/babel-node --presets react,es2015 server.js"
   },
   "repository": {
     "type": "git"
@@ -20,6 +20,7 @@
     "babel-preset-react": "^6.3.13",
     "body-parser": "^1.15.2",
     "express": "^4.13.3",
+    "jquery": "^3.1.1",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "react": "^0.14.3",

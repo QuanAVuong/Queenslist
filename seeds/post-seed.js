@@ -41,7 +41,7 @@ Post.sync({force: true})
   }
 ))
 .then((post) => {
-  post.addTags([2])
+  post.addTags([3])
 })
 //the following Post should NOT be added to your database:
 //(if your validations are setup correctly)
