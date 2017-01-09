@@ -3,11 +3,18 @@ const path = require("path")
 const PostModel = require(path.join(__dirname, '../../models/post-model'))
 const TagModel = require(path.join(__dirname, '../../models/tag-model'))
 
-router.route('/findTag/:tagname')
+router.route('/findPostsWithAny/:tags')
 .get((req, res) => {
-  TagModel.findAll({
-    where: {title: req.params.tagname},
-    include: [PostModel]
+  let tagArray = req.params.tags.split('+')
+  PostModel.findAll({
+    include: [ {
+        model: TagModel,
+        where: {
+          title: {
+            $or: tagArray
+          }
+        }
+    } ]
   })
   .then((data) => {
     res.send(data)
@@ -18,14 +25,28 @@ router.route('/findTag/:tagname')
   })
 })
 
-router.route('/findModels')
+
+router.route('/findPostsWithOnly/:tags')
 .get((req, res) => {
+  let tagArray = req.params.tags.split('+')
   PostModel.findAll({
-    where: { $and: [{title: 'cheap'}, {title: 'cars'}]},
-    include: [{model: TagModel}]
+    include: [ {
+        model: TagModel,
+        where: {
+          title: {
+            $or: ['cheap', 'cars']
+          }
+        }
+    } ]
   })
   .then((data) => {
-    res.send(data)
+    let newData = []
+    data.forEach((ele) => {
+      if (ele.tags.length === tagArray.length) {
+        newData.push(ele)
+      }
+  })
+    res.send(newData)
   })
   .catch((err) => {
     console.log(err)

@@ -17,7 +17,7 @@ Post.sync({force: true})
 ))
 .then((post) => {
   //use an automatically created 'accessor' method (addTags) to add the tags
-  post.addTags([0])
+  post.addTags([1])
 })
 .then(() => Post.create(
   {
@@ -29,7 +29,7 @@ Post.sync({force: true})
   }
 ))
 .then((post) => {
-  post.addTags([0,1])
+  post.addTags([1,2])
 })
 .then(() => Post.create(
   {
