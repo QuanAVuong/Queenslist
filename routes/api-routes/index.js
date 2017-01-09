@@ -69,4 +69,22 @@ router.route('/findCategory/:category')
   })
 })
 
+router.route('/createPost')
+.post((req, res) => {
+  console.log(req.body)
+  req.body.tags.forEach((ele) => {
+    TagModel.findOrCreate({
+      where: {title: ele.title},
+      defaults: {counter: 1}
+    })
+  }).then((data) => {
+    // PostModel.create({
+    //   category: req.body.category,
+    //   title:
+    // })
+  })
+
+
+})
+
 module.exports = router
