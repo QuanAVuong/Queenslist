@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Quick Setup For React, GraphQL, and Relay",
   "scripts": {
-    "start": "concurrently --kill-others \"webpack --watch\" \"nodemon ./server.js\""
+    "start": "webpack --watch & nodemon server.js"
   },
   "repository": {
     "type": "git"
