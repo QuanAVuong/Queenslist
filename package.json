@@ -8,7 +8,7 @@
   "repository": {
     "type": "git"
   },
-  "author": "Christopher Sancho",
+  "author": "Matt Jennings",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
