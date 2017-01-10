@@ -3,11 +3,19 @@ const path = require("path")
 const PostModel = require(path.join(__dirname, '../../models/post-model'))
 const TagModel = require(path.join(__dirname, '../../models/tag-model'))
 
-router.route('/findTag/:tagname')
+router.route('/findPostsWithAny/:tags/:category')
 .get((req, res) => {
-  TagModel.findAll({
-    where: {title: req.params.tagname},
-    include: [PostModel]
+  let tagArray = req.params.tags.split('+')
+  PostModel.findAll({
+    where: {category: req.params.category},
+    include: [ {
+        model: TagModel,
+        where: {
+          title: {
+            $or: tagArray
+          }
+        }
+    } ]
   })
   .then((data) => {
     res.send(data)
@@ -18,13 +26,29 @@ router.route('/findTag/:tagname')
   })
 })
 
-router.route('/findModels')
+
+router.route('/findPostsWithOnly/:tags/:category')
 .get((req, res) => {
+  let tagArray = req.params.tags.split('+')
   PostModel.findAll({
-    include: [{model: TagModel, where: {title: ['cars', 'cheap']}}]
+    where: {category: req.params.category},
+    include: [ {
+        model: TagModel,
+        where: {
+          title: {
+            $or: ['cheap', 'cars']
+          }
+        }
+    } ]
   })
   .then((data) => {
-    res.send(data)
+    let newData = []
+    data.forEach((ele) => {
+      if (ele.tags.length === tagArray.length) {
+        newData.push(ele)
+      }
+  })
+    res.send(newData)
   })
   .catch((err) => {
     console.log(err)
@@ -44,6 +68,30 @@ router.route('/findCategory/:category')
   .catch((err) => {
     console.log(err)
     res.sendStatus(500)
+  })
+})
+
+router.route('/createPost')
+.post((req, res) => {
+  let promiseArray = []
+  req.body.tags.forEach((ele) => {
+    promiseArray.push(TagModel.findOrCreate({
+      where: {title: ele.title},
+      defaults: {counter: 0}
+    }))
+    Promise.all(promiseArray).then((tags) => {
+      let tagsArray = tags
+      PostModel.create({
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        images: req.body.images,
+        email: req.body.email,
+      }).then((post, tagsArray) => {
+
+        post.addTags(tagsArray)
+      })
+    })
   })
 })
 
