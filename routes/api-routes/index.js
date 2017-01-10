@@ -3,10 +3,11 @@ const path = require("path")
 const PostModel = require(path.join(__dirname, '../../models/post-model'))
 const TagModel = require(path.join(__dirname, '../../models/tag-model'))
 
-router.route('/findPostsWithAny/:tags')
+router.route('/findPostsWithAny/:tags/:category')
 .get((req, res) => {
   let tagArray = req.params.tags.split('+')
   PostModel.findAll({
+    where: {category: req.params.category},
     include: [ {
         model: TagModel,
         where: {
@@ -26,10 +27,11 @@ router.route('/findPostsWithAny/:tags')
 })
 
 
-router.route('/findPostsWithOnly/:tags')
+router.route('/findPostsWithOnly/:tags/:category')
 .get((req, res) => {
   let tagArray = req.params.tags.split('+')
   PostModel.findAll({
+    where: {category: req.params.category},
     include: [ {
         model: TagModel,
         where: {
@@ -71,20 +73,26 @@ router.route('/findCategory/:category')
 
 router.route('/createPost')
 .post((req, res) => {
-  console.log(req.body)
+  let promiseArray = []
   req.body.tags.forEach((ele) => {
-    TagModel.findOrCreate({
+    promiseArray.push(TagModel.findOrCreate({
       where: {title: ele.title},
-      defaults: {counter: 1}
+      defaults: {counter: 0}
+    }))
+    Promise.all(promiseArray).then((tags) => {
+      let tagsArray = tags
+      PostModel.create({
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        images: req.body.images,
+        email: req.body.email,
+      }).then((post, tagsArray) => {
+
+        post.addTags(tagsArray)
+      })
     })
-  }).then((data) => {
-    // PostModel.create({
-    //   category: req.body.category,
-    //   title:
-    // })
   })
-
-
 })
 
 module.exports = router
