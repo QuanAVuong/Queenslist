@@ -30,14 +30,19 @@ var CreatePost = React.createClass({
     this.setState({description: e.currentTarget.value})
   },
   updateImages: function(e) {
-    var imgArray = this.state.images
-    imgArray.push(e.currentTarget.value)
-    this.setState({images: imgArray})
+    // var arrImages = this.state.images
+    let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
+    let arrImages = [];
+    for (let i = 0; i < input.length; i++) {
+      arrImages.push(input[i]); // "arrImages": [{"title": "space"}, {"title": "ship"}, {"title": "real"}]
+    }
+    console.log("arrImages", arrImages);
+    this.setState({images: arrImages})
   },
   updateEmail: function(e) {
     this.setState({email: e.currentTarget.value})
   },
-  updateTag: function(e) { 
+  updateTags: function(e) { 
     let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
     let tags = [];
     for (let i = 0; i < input.length; i++) {
@@ -64,7 +69,7 @@ var CreatePost = React.createClass({
           Email:
           <input type="text" placeholder="email" onChange={this.updateEmail}></input><br/>
           Tags:
-          <input type="text" placeholder="tags eg. cheap | new" onChange={this.updateTag}></input><br/>
+          <input type="text" placeholder="tags eg. cheap | new" onChange={this.updateTags}></input><br/>
 
           <input type="submit" value="Submit A New Post !"></input><hr/>
 
