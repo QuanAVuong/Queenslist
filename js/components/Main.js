@@ -1,25 +1,22 @@
 import React from "react";
-import {connect} from 'react-redux';
+
+import {Layout, Content} from 'react-mdl';
+
+import AppBar from './common/AppBar';
+
 
 
 export class Main extends React.Component {
+
   render() {
-    console.log(this.props.posts)
     return (
       <div>
-        <h3>Queens List</h3>
-
+        <AppBar />
         {this.props.children}
-
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    posts: state.posts
-  }
-}
 
-export default connect(mapStateToProps)(Main);
+export default Main;

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import postReducer from './postReducer';
+import adReducer from './adReducer';
 
 
 // combines reducers for store
 
 const rootReducer = combineReducers({
-  posts: postReducer,
+  ads: adReducer,
 
 });
 

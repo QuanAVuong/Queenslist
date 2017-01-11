@@ -6,6 +6,11 @@ import {Router, browserHistory} from 'react-router';
 import store from './store/configureStore';
 import routes from './routes';
 
+import 'react-mdl/extra/material.css';
+import 'react-mdl/extra/material.js';
+import './styles/style.css';
+
+
 
 
 ReactDOM.render(
