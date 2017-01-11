@@ -4,10 +4,12 @@ import {Link} from 'react-router';
 
 var CreatePost = React.createClass({
   getInitialState: function () {
-    return({category: null, title: null, description: null, images: null, email: null, tag: null})
+    return({category: null, title: null, description: null, images: [], email: null, tags: null})
   },
   createPost: function (e) {
+    e.preventDefault()
     var info = this.state
+    console.log(info)
     $.ajax({
       url: "/api/createPost",
       type: "POST",
@@ -28,7 +30,9 @@ var CreatePost = React.createClass({
     this.setState({description: e.currentTarget.value})
   },
   updateImages: function(e) {
-    this.setState({images: e.currentTarget.value})
+    var imgArray = this.state.images
+    imgArray.push(e.currentTarget.value)
+    this.setState({images: imgArray})
   },
   updateEmail: function(e) {
     this.setState({email: e.currentTarget.value})
@@ -40,7 +44,7 @@ var CreatePost = React.createClass({
       tags.push( { title: input[i] } ); // "tags": [{"title": "space"}, {"title": "ship"}, {"title": "real"}]
     }
     console.log("tags", tags);
-    this.setState({tag: tags})
+    this.setState({tags: tags})
     // debugger;
   },
 
