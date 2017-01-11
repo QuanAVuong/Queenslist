@@ -33,9 +33,15 @@ var CreatePost = React.createClass({
   updateEmail: function(e) {
     this.setState({email: e.currentTarget.value})
   },
-  udpateTag: function(e) {
-    let input = e.currentTarget.value.split(" ");
-    this.setState({email: input}) // ["tag1", "tag2", ...]
+  updateTag: function(e) { 
+    let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
+    let tags = [];
+    for (let i = 0; i < input.length; i++) {
+      tags.push( { title: input[i] } ); // "tags": [{"title": "space"}, {"title": "ship"}, {"title": "real"}]
+    }
+    console.log("tags", tags);
+    this.setState({tag: tags})
+    // debugger;
   },
 
   render: function() {
