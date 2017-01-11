@@ -8,14 +8,14 @@ router.route('/findPostsWithAny/:tags/:category')
   let tagArray = req.params.tags.split('+')
   PostModel.findAll({
     where: {category: req.params.category},
-    include: [ {
+    include: [{
         model: TagModel,
         where: {
           title: {
             $or: tagArray
           }
         }
-    } ]
+    }]
   })
   .then((data) => {
     res.send(data)
