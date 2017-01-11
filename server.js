@@ -6,8 +6,10 @@ const bodyParser = require('body-parser');
 
 let app = express();
 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
 
 app.use('/', require('./routes'))
 

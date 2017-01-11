@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "A Quick Setup For React, GraphQL, and Relay",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node --presets react,es2015 server.js"
+    "start": "concurrently --kill-others \"webpack --watch\" \"nodemon ./server.js\""
   },
   "repository": {
     "type": "git"
   },
-  "author": "Christopher Sancho",
+  "author": "Matt Jennings",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",

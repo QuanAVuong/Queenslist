@@ -32,14 +32,14 @@ router.route('/findPostsWithOnly/:tags/:category')
   let tagArray = req.params.tags.split('+')
   PostModel.findAll({
     where: {category: req.params.category},
-    include: [ {
+    include: [{
         model: TagModel,
         where: {
           title: {
-            $or: ['cheap', 'cars']
+            $or: tagArray
           }
         }
-    } ]
+    }]
   })
   .then((data) => {
     let newData = []
@@ -79,20 +79,27 @@ router.route('/createPost')
       where: {title: ele.title},
       defaults: {counter: 0}
     }))
-    Promise.all(promiseArray).then((tags) => {
-      let tagsArray = tags
-      PostModel.create({
-        category: req.body.category,
-        title: req.body.title,
-        description: req.body.description,
-        images: req.body.images,
-        email: req.body.email,
-      }).then((post, tagsArray) => {
+  })
+  Promise.all(promiseArray).then((tags) => {
+    var tagsIdArray = []
+    tags.forEach((ele) => {
+      ele[0].increment('counter')
+      tagsIdArray.push(ele[0].id)
+    })
 
-        post.addTags(tagsArray)
+    PostModel.create({
+      category: req.body.category,
+      title: req.body.title,
+      description: req.body.description,
+      images: req.body.images,
+      email: req.body.email,
+      }).then((post) => {
+        post.addTags(tagsIdArray)
+        res.sendStatus(200)
+      }).catch((err) => {
+        res.sendStatus(500)
       })
     })
   })
-})
 
 module.exports = router
