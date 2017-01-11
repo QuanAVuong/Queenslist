@@ -6,6 +6,7 @@ import BuyComponent from './components/BuyComponent';
 import Home from './components/Home';
 import SellComponent from './components/SellComponent';
 import RentComponent from './components/RentComponent';
+import CreatePost from './components/CreatePost';
 
 export default (
   <Route path='/' component={Main}>
@@ -13,5 +14,6 @@ export default (
     <Route path='/buy' component={BuyComponent} />
     <Route path='/sell' component={SellComponent} />
     <Route path='/rent' component={RentComponent} />
+    <Route path='/createPost' component={CreatePost} />
   </Route>
 )

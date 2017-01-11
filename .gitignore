@@ -2,3 +2,4 @@ node_modules/
 bundle.js*
 package.json
 sequelize-connection.js
+npm-debug.log

@@ -9,9 +9,10 @@ class Home extends Component {
   render() {
     return(
       <div>
-        <Link to='buy'>BUY</Link>
-        <Link to='sell'>SELL</Link>
-        <Link to='rent'>RENT</Link>
+        <Link to='buy'>BUY</Link><br/>
+        <Link to='sell'>SELL</Link><br/>
+        <Link to='rent'>RENT</Link><br/>
+        <Link to='createPost'>Submit A Post</Link>
       </div>
     )
   }
