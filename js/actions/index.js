@@ -1,15 +1,42 @@
-export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_ADS = 'FETCH_ADS';
+export const CREATE_AD = 'CREATE_AD';
 import axios from 'axios';
 import {get} from 'jquery';
 
-export function fetchposts(category) {
+export function fetchAds(category) {
   // api call
-  console.log(category)
   let url = ('/api/findCategory/' + category)
   const request = axios.get(url)
   console.log('request',request)
   return {
-    type: FETCH_POSTS,
+    type: FETCH_ADS,
     payload: request
   }
+}
+
+
+export function createAd(ad) {
+  // api call
+  console.log(ad)
+  let url = ('/api/createPost/')
+  axios.post(url, {
+    category: ad.category,
+    title: ad.title,
+    description: ad.description,
+    images: [ad.image],
+    email: ad.email,
+    tags: ['sell']
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  return {
+    type: CREATE_AD,
+    payload: null
+  }
+
 }
