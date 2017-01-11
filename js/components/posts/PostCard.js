@@ -3,20 +3,16 @@ import { Card, CardTitle, CardText, CardActions, IconButton, Button, CardMenu } 
 
 
 
-const PostCard = () => (
+const PostCard = ({data}) => (
 
   <Card shadow={0} style={{ margin: 'auto'}}>
-    <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
-    <CardText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Mauris sagittis pellentesque lacus eleifend lacinia...
-    </CardText>
-    <CardActions border>
-        <Button colored>Get Started</Button>
-    </CardActions>
-    <CardMenu style={{color: '#fff'}}>
-        <IconButton name="share" />
-    </CardMenu>
+    <CardTitle style={{color: '#fff', height: '176px', background: `url(${data.images[0]}) center / cover`}}>{data.title}</CardTitle>
+      <CardText>
+        {data.description}
+      </CardText>
+      <CardActions border>
+          <Button colored>View Post</Button>
+      </CardActions>
 </Card>
 
 )

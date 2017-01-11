@@ -7,7 +7,6 @@ export function fetchAds(category) {
   // api call
   let url = ('/api/findCategory/' + category)
   const request = axios.get(url)
-  console.log('request',request)
   return {
     type: FETCH_ADS,
     payload: request

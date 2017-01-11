@@ -11,7 +11,7 @@ const AppBar = () => (
       <Switch id="sell"><strong  style={{ color: 'black' }}>SELL</strong></Switch>
       <Switch id="rent"><strong  style={{ color: 'black' }}>RENT</strong></Switch>
     </Navigation>
-    
+
     <Navigation>
       <Textfield
         style={{color:"black"}}

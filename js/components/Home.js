@@ -10,12 +10,6 @@ import {Grid, FABButton, Icon, Dialog, DialogTitle, DialogContent, DialogActions
 
 import {fetchAds, createAd} from '../actions/index';
 
-// category: req.body.category,
-// title: req.body.title,
-// description: req.body.description,
-// images: req.body.images,
-// email: req.body.email,
-
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -37,14 +31,18 @@ class Home extends Component {
 
 
   render() {
-    if(this.props.ads) {
-      console.log(this.props.ads)
+    let temp =[]
+    if(this.props.ads.length >=1){
+
+      this.props.ads.forEach((val, idx) => {
+        temp.push(<PostCard data={val} key={idx} />)
+      })
     }
     return(
       <div>
 
         <Grid className="demo-grid-1">
-          <PostCard col={4} />
+          {temp}
         </Grid>
         <div className="centered">
 
@@ -59,13 +57,11 @@ class Home extends Component {
       </div>
     )
   }
-  componentDidMount() {
+  componentWillMount() {
     let that = this;
     this.props.fetchAds('sell')
-      .then(() => {
-        that.setState({currentAds: that.props.ads})
-      })
   }
+
 }
 
 function mapStateToProps(state) {
