@@ -73,6 +73,7 @@ router.route('/findCategory/:category')
 
 router.route('/createPost')
 .post((req, res) => {
+  console.log(req.body)
   let promiseArray = []
   req.body.tags.forEach((ele) => {
     promiseArray.push(TagModel.findOrCreate({

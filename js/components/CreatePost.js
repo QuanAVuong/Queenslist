@@ -4,10 +4,12 @@ import {Link} from 'react-router';
 
 var CreatePost = React.createClass({
   getInitialState: function () {
-    return({category: null, title: null, description: null, images: null, email: null, tag: null})
+    return({category: null, title: null, description: null, images: [], email: null, tags: null})
   },
   createPost: function (e) {
+    e.preventDefault()
     var info = this.state
+    console.log(info)
     $.ajax({
       url: "/api/createPost",
       type: "POST",
@@ -28,19 +30,26 @@ var CreatePost = React.createClass({
     this.setState({description: e.currentTarget.value})
   },
   updateImages: function(e) {
-    this.setState({images: e.currentTarget.value})
+    // var arrImages = this.state.images
+    let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
+    let arrImages = [];
+    for (let i = 0; i < input.length; i++) {
+      arrImages.push(input[i]); // "arrImages": [{"title": "space"}, {"title": "ship"}, {"title": "real"}]
+    }
+    console.log("arrImages", arrImages);
+    this.setState({images: arrImages})
   },
   updateEmail: function(e) {
     this.setState({email: e.currentTarget.value})
   },
-  updateTag: function(e) { 
+  updateTags: function(e) { 
     let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
     let tags = [];
     for (let i = 0; i < input.length; i++) {
       tags.push( { title: input[i] } ); // "tags": [{"title": "space"}, {"title": "ship"}, {"title": "real"}]
     }
     console.log("tags", tags);
-    this.setState({tag: tags})
+    this.setState({tags: tags})
     // debugger;
   },
 
@@ -60,7 +69,7 @@ var CreatePost = React.createClass({
           Email:
           <input type="text" placeholder="email" onChange={this.updateEmail}></input><br/>
           Tags:
-          <input type="text" placeholder="tags eg. cheap | new" onChange={this.updateTag}></input><br/>
+          <input type="text" placeholder="tags eg. cheap | new" onChange={this.updateTags}></input><br/>
 
           <input type="submit" value="Submit A New Post !"></input><hr/>
 
