@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelizeConnection = new Sequelize('postgres://postgres:@localhost:5432/queenslist');
+const sequelizeConnection = new Sequelize('postgres://postgres:walruspass@localhost:5432/queenslist');
 
 sequelizeConnection
 .authenticate()

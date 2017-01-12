@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Simple SpinOff of craigslist",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node --presets react,es2015 server.js"
+    "start": "concurrently --kill-others \"webpack --watch\" \"nodemon ./server.js\""
   },
   "repository": {
     "type": "git"
