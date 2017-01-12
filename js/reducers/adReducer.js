@@ -1,4 +1,4 @@
-import {FETCH_POSTS} from '../actions/index';
+import {FETCH_ADS} from '../actions/index';
 
 const initialState = {
   posts: 42
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case FETCH_POSTS:
+    case FETCH_ADS:
     return action.payload.data;
   }
 
