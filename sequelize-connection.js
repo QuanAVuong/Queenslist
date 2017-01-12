@@ -1,6 +1,10 @@
 const Sequelize = require('sequelize');
 
-const sequelizeConnection = new Sequelize('postgres://postgres:postgres@localhost:5432/queenslist');
+// const sequelizeConnection = new Sequelize('postgres://Quan@localhost:5432/queenslist');
+
+// HEROKU
+let sequelizeConnection = process.env.NODE_ENV === 'production' ? new Sequelize(process.env.DATABASE_URL) : new Sequelize('postgres://Quan@localhost:5432/queenslist');
+
 
 sequelizeConnection
 .authenticate()
@@ -8,3 +12,6 @@ sequelizeConnection
 .catch((err) => console.log('Unable to connect to the database:', err));
 
 module.exports = sequelizeConnection;
+
+
+
