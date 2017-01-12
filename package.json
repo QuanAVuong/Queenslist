@@ -8,7 +8,7 @@
   "repository": {
     "type": "git"
   },
-  "author": "Christopher Sancho",
+  "author": "Quan Vuong",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
