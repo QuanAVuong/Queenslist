@@ -31,6 +31,16 @@ export default class PostModal extends Component {
   handleEmail (e) {
     this.setState({email: e.target.value})
   }
+  handleTags (e) {
+    let input = e.currentTarget.value.split(/\s+/).filter( elem => elem !== "" );
+    let tags = [];
+    for (let i = 0; i < input.length; i++) {
+      tags.push( { title: input[i] } );
+    }
+    console.log("tags", tags);
+    this.setState({tags: tags})
+  }
+
 
   render() {
     return (
@@ -72,7 +82,14 @@ export default class PostModal extends Component {
             rows={3}
             style={{width: '200px'}}
           />
-        <div className="well">
+          <Textfield
+            onChange={this.handleTags.bind(this)}
+            label="Tags"
+            floatingLabel
+            style={{width: '400px'}}
+          />
+
+          <div className="well">
             {this.state.tags}
           </div>
         </DialogContent>
