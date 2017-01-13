@@ -1,14 +1,27 @@
-export const FETCH_ADS = 'FETCH_ADS';
+export const FETCH_ANY = 'FETCH_ANY';
+export const FETCH_ONLY = 'FETCH_ONLY';
 export const CREATE_AD = 'CREATE_AD';
 import axios from 'axios';
 import {get} from 'jquery';
 
-export function fetchAds(category) {
+export function fetchAny(tags, categorys) {
   // api call
-  let url = ('/api/findCategory/' + category)
+
+  let url = ('/api/findPostsWithAny/' + tags + '/' + categorys)
   const request = axios.get(url)
   return {
-    type: FETCH_ADS,
+    type: FETCH_ANY,
+    payload: request
+  }
+}
+
+export function fetchOnly(tags, categorys) {
+  // api call
+  console.log(tags, categorys)
+  let url = ('/api/findPostsWithOnly/' + tags + '/' + categorys)
+  const request = axios.get(url)
+  return {
+    type: FETCH_ONLY,
     payload: request
   }
 }
@@ -16,7 +29,6 @@ export function fetchAds(category) {
 
 export function createAd(ad) {
   // api call
-  console.log(ad)
   let url = ('/api/createPost/')
   axios.post(url, {
     category: ad.category,
@@ -24,7 +36,7 @@ export function createAd(ad) {
     description: ad.description,
     images: [ad.image],
     email: ad.email,
-    tags: ['sell']
+    tags: ad.tags
   })
   .then(function (response) {
     console.log(response);

@@ -8,7 +8,7 @@ import PostModal from './posts/PostModal';
 
 import {Grid, FABButton, Icon, Dialog, DialogTitle, DialogContent, DialogActions, Button, Textfield, Chip} from 'react-mdl';
 
-import {fetchAds, createAd} from '../actions/index';
+import {fetchOnly, fetchAny, createAd} from '../actions/index';
 
 class Home extends Component {
   constructor(props) {
@@ -23,14 +23,15 @@ class Home extends Component {
     openDialog: true
   });
 }
+
   handleCloseDialog() {
     this.setState({
       openDialog: false
     });
   }
 
-
   render() {
+    console.log(this.props.ads)
     let temp =[]
     if(this.props.ads.length >=1){
 
@@ -57,11 +58,6 @@ class Home extends Component {
       </div>
     )
   }
-  componentWillMount() {
-    let that = this;
-    this.props.fetchAds('sell')
-  }
-
 }
 
 function mapStateToProps(state) {
@@ -69,9 +65,10 @@ function mapStateToProps(state) {
     ads: state.ads
   }
 }
-  function mapDispatchToProps( dispatch){
-    return bindActionCreators({ fetchAds, createAd }, dispatch)
-  }
+
+function mapDispatchToProps( dispatch){
+  return bindActionCreators({ fetchAny, fetchOnly, createAd }, dispatch)
+}
 
 
 
