@@ -1,4 +1,4 @@
-import {FETCH_ADS} from '../actions/index';
+import {FETCH_ANY, FETCH_ONLY} from '../actions/index';
 
 const initialState = {
   posts: 42
@@ -6,7 +6,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case FETCH_ADS:
+    case FETCH_ANY:
+    return action.payload.data
+    break;
+    case FETCH_ONLY:
     return action.payload.data;
   }
 
